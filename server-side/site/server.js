@@ -8,8 +8,8 @@ var express = require('express'),
 	study = require('./routes/study.js'),
 	admin = require('./routes/admin.js');
 
-var app = express();
-//app.use(express.vhost('localhost', one));
+var app = express.createServer();
+app.use(express.vhost('localhost', one));
 
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
