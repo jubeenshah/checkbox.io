@@ -47,7 +47,7 @@ app.post('/api/design/survey',
 
 
 //// ################################
-//// Towards general study management.
+//// Towards generalprocess.env.MONGO_PORT study management.
 app.get('/api/study/load/:id', study.loadStudy );
 app.get('/api/study/vote/status', study.voteStatus );
 app.get('/api/study/status/:id', study.status );
@@ -86,5 +86,5 @@ app.post('/api/study/admin/notify/', admin.notifyParticipant);
 
 
 
-app.listen(process.env.MONGO_PORT);
+app.listen(3002);
 console.log('Listening on port 3002...');
