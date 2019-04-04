@@ -11,7 +11,7 @@ var express = require('express'),
 
 
 var redis   = require('redis');
-var client = redis.createClient(6379, '127.0.0.1', {});
+var client = redis.createClient(6379, '34.207.73.160', {});
 console.log("Connect to the Redis Server");
 
 var app = express();
