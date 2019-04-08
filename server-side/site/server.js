@@ -9,11 +9,6 @@ var express = require('express'),
 	admin = require('./routes/admin.js');
 
 
-
-var redis   = require('redis');
-var client = redis.createClient(6379, '127.0.0.1', {});
-console.log("Connect to the Redis Server");
-
 var app = express();
 //app.use(express.vhost('localhost', one));
 
@@ -35,22 +30,10 @@ app.options('/api/study/vote/submit/', cors(corsOptions));
 app.post('/api/design/survey', 
 	function(req,res)
 	{
-		try{
-			client.get("mdFlag", function (err, value) {
-				if (value === "false") {
-					//console.log("Markdown feature is disabled");
-					res.send({preview: "Markdown preview is disabled"})
-				} else {
-					console.log(req.body.markdown);
-					//var text = marqdown.render( req.query.markdown );
-					var text = marqdown.render(req.body.markdown);
-					res.send({ preview: text });		
-				}
-			});
-
-		} catch(e){
-			res.send({ preview: e });
-		}
+		console.log(req.body.markdown);
+		//var text = marqdown.render( req.query.markdown );
+		var text = marqdown.render(req.body.markdown);
+		res.send({ preview: text });		
 	}
 );
 
