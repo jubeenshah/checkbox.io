@@ -86,4 +86,4 @@ app.post('/api/study/admin/notify/', admin.notifyParticipant);
 
 
 app.listen(3002);
-console.log(`Listening on port ${port}...`);
+console.log(`Listening on port 3002...`);
