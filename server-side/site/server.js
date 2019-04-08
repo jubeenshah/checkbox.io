@@ -8,9 +8,7 @@ var express = require('express'),
 	study = require('./routes/study.js'),
 	admin = require('./routes/admin.js');
 
-
 var app = express();
-//app.use(express.vhost('localhost', one));
 
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
@@ -32,11 +30,10 @@ app.post('/api/design/survey',
 	{
 		console.log(req.body.markdown);
 		//var text = marqdown.render( req.query.markdown );
-		var text = marqdown.render(req.body.markdown);
-		res.send({ preview: text });		
+		var text = marqdown.render( req.body.markdown );
+		res.send( {preview: text} );
 	}
 );
-
 
 //app.get('/api/design/survey/all', routes.findAll );
 //app.get('/api/design/survey/:id', routes.findById );
@@ -49,7 +46,7 @@ app.post('/api/design/survey',
 
 
 //// ################################
-//// Towards generalprocess.env.MONGO_PORT study management.
+//// Towards general study management.
 app.get('/api/study/load/:id', study.loadStudy );
 app.get('/api/study/vote/status', study.voteStatus );
 app.get('/api/study/status/:id', study.status );
@@ -89,4 +86,4 @@ app.post('/api/study/admin/notify/', admin.notifyParticipant);
 
 
 app.listen(3002);
-console.log('Listening on port 3002...');
+console.log(`Listening on port ${port}...`);
