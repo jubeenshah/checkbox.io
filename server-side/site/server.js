@@ -7,6 +7,8 @@ var express = require('express'),
 	create = require('./routes/create.js'),
 	study = require('./routes/study.js'),
 	admin = require('./routes/admin.js');
+        got = require('got');
+	child_process = require('child_process')
 
 var app = express();
 
@@ -14,6 +16,7 @@ app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
 });
+
 
 var whitelist = ['http://chrisparnin.me', 'http://pythontutor.com', 'http://happyface.io', 'http://happyface.io:8003', 'http://happyface.io/hf.html'];
 var corsOptions = {
@@ -23,18 +26,28 @@ var corsOptions = {
   }
 };
 
+// healthcheck
+app.get('/healthcheck', (req, res) => {
+  res.status(200).end();
+});
+
 app.options('/api/study/vote/submit/', cors(corsOptions));
 
-app.post('/api/design/survey', 
-	function(req,res)
+app.post('/api/design/survey',
+	async function(req,res)
 	{
-		console.log(req.body.markdown);
-		//var text = marqdown.render( req.query.markdown );
-		var text = marqdown.render( req.body.markdown );
-		res.send( {preview: text} );
+    const markdown = req.body.markdown
+		console.log(markdown);
+    const response = await got.post(`http://localhost:3003/render`, {
+      body: {
+        markdown: markdown
+      },
+      json: true,
+      timeout: 500
+    });
+		res.send({ preview: response.body.preview });
 	}
 );
-
 //app.get('/api/design/survey/all', routes.findAll );
 //app.get('/api/design/survey/:id', routes.findById );
 //app.get('/api/design/survey/admin/:token', routes.findByToken );
