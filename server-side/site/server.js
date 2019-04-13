@@ -36,6 +36,7 @@ app.options('/api/study/vote/submit/', cors(corsOptions));
 app.post('/api/design/survey',
 	async function(req,res)
 	{
+	try {
     const markdown = req.body.markdown
 		console.log(markdown);
     const response = await got.post(`http://localhost:3003/render`, {
@@ -46,6 +47,11 @@ app.post('/api/design/survey',
       timeout: 500
     });
 		res.send({ preview: response.body.preview });
+	}
+	catch (e) {
+		console.log("Error: "+ e);	
+	}
+	
 	}
 );
 //app.get('/api/design/survey/all', routes.findAll );
