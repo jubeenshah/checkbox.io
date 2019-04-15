@@ -39,7 +39,7 @@ app.post('/api/design/survey',
 	try {
     const markdown = req.body.markdown
 		console.log(markdown);
-    const response = await got.post(`http://mongodb/render`, {
+    const response = await got.post(`http://render-service:3003/render`, {
       body: {
         markdown: markdown
       },
